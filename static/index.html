@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mediathek Renamer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Mediathek Renamer</h1>
+  </header>
+
+  <main>
+    <section class="card" aria-labelledby="step1-title">
+      <h2 id="step1-title"><span class="step">1</span> Open folder</h2>
+      <form id="folder-form" class="folder-row">
+        <input id="folder-input" type="text" placeholder="/path/to/media/folder" autocomplete="off" spellcheck="false" aria-label="Folder path">
+        <button type="button" id="browse-btn" class="btn">Browse…</button>
+        <button type="submit" class="btn btn-primary">Open</button>
+      </form>
+    </section>
+
+    <section class="card" id="bundles-card" hidden aria-labelledby="step2-title">
+      <div class="card-head">
+        <h2 id="step2-title"><span class="step">2</span> Rename bundles</h2>
+        <div class="card-actions">
+          <label class="checkbox"><input type="checkbox" id="video-only"> Only bundles with video</label>
+          <button type="button" id="reload-btn" class="btn">Reload</button>
+          <button type="button" id="save-all-btn" class="btn btn-primary" disabled>Save all changes</button>
+        </div>
+      </div>
+      <p class="muted" id="bundle-summary"></p>
+      <ul id="bundle-list" class="bundle-list"></ul>
+    </section>
+  </main>
+
+  <dialog id="browse-dialog">
+    <form method="dialog" class="dialog-inner">
+      <h2>Choose a folder</h2>
+      <div class="dialog-path" id="browse-path"></div>
+      <ul id="browse-list" class="browse-list"></ul>
+      <div class="dialog-actions">
+        <button value="cancel" class="btn">Cancel</button>
+        <button value="ok" id="browse-ok" class="btn btn-primary">Open this folder</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <template id="bundle-template">
+    <li class="bundle">
+      <div class="bundle-main">
+        <div class="bundle-old"></div>
+        <div class="files"></div>
+      </div>
+      <form class="bundle-form">
+        <input class="bundle-input" type="text" spellcheck="false" aria-label="New bundle name">
+        <button type="button" class="btn btn-ghost reset-btn" title="Reset" aria-label="Reset" hidden>↺</button>
+        <button type="submit" class="btn btn-primary save-btn" disabled>Save</button>
+      </form>
+      <div class="quick">
+        <button type="button" class="quick-btn paste-btn" title="Replace the new name with the old name, underscores turned into spaces">Paste name _ → ␣</button>
+      </div>
+      <div class="bundle-preview muted"></div>
+    </li>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
